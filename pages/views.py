@@ -8,11 +8,13 @@ def home(request):
     teams = Team.objects.all()
     featured_cars = Car.objects.order_by('-price').filter(is_featured=True)
     all_cars = Car.objects.order_by('-price')
+    year_search = Car.objects.order_by('year').values('year').distinct()
 
     data = {
         'teams': teams,
         'featured_cars': featured_cars,
         'all_cars': all_cars,
+        'year_search' : year_search,
     }
     return render(request,'pages/home.html',data)
 
